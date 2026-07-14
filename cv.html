@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajay Barman - CV</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Header / Navigation -->
+        <header class="header">
+            <nav class="nav container">
+                <a href="index.html#home" class="logo"><img src="img/logoportfolio.png" alt=""></a>
+                <div class="nav-menu" id="navMenu">
+                    <ul class="nav-list">
+                        <li><a href="index.html#home" class="nav-link">Home</a></li>
+                        <li><a href="index.html#about" class="nav-link">About</a></li>
+                        <li><a href="index.html#advantages" class="nav-link">Skills</a></li>
+                        <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                        <li><a href="cv.html" class="nav-link active">CV</a></li>
+                        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="img/video1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <!-- CV / Download Section -->
+        <section class="section cv-section" id="cv">
+            <div class="container">
+                <h2 class="section-title">My <span>CV</span></h2>
+                <div class="cv-content">
+                    <div class="cv-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Ajay Barman — Frontend Developer</h3>
+                    <p>
+                        Grab a copy of my resume for a full breakdown of my experience,
+                        skills and the projects I've worked on.
+                    </p>
+                    <div class="cv-buttons">
+                        <a href="img/CV_2026031912472031.pdf" class="btn" target="_blank" rel="noopener" download="Ajay-Barman-CV.pdf">
+                            <i class="fas fa-download"></i>&nbsp; Download CV
+                        </a>
+                        <a href="img/CV_2026031912472031.pdf" target="_blank" rel="noopener" class="btn btn-outline">
+                            <i class="fas fa-eye"></i>&nbsp; View CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>All rights reserved | &copy; <span id="year"></span></p>
+                <a href="#cv" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
