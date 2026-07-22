@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<style>
+body{
+    margin:0;
+    background:#0d1117;
+    font-family:Arial;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:#161b22;
+    color:#fff;
+}
+
+button{
+    padding:8px 16px;
+    cursor:pointer;
+}
+
+pre{
+    margin:0;
+    padding:20px;
+    overflow:auto;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <span>Search.jsx</span>
+    <button onclick="copy()">Copy</button>
+</div>
+
+<pre><code class="language-javascript" id="code"></code></pre>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+<script>
+
+const reactCode = `
+import {useState, useEffect, useRef} from 'react'
+import "./Layout.css"
+
+
+function Search() {
+ const [products, setProducts] = useState([]);
+ const [fvalue, setfvalue] = useState("");
+ const [filtervalue, setfiltervalue] = useState([])
+ const [showSuggestions, setShowSuggestions] = useState(false);
+ const searchRef = useRef(null);
+
+const handleSearchvalue =(e) =>{
+   const value = e.target.value
+   setfvalue(value)
+  const filtervaluestore = products.filter((item =>
+       item.title.toLowerCase().includes(value.toLowerCase())
+   ))
+   setfiltervalue(filtervaluestore)
+    setShowSuggestions(true);
+}
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target)
+            ) {
+                setShowSuggestions(false);
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
+ useEffect(() => {
+     fetchproducts();
+ }, [])
+
+ const fetchproducts = async () => {
+     try{
+         const res = await fetch("https://dummyjson.com/products")
+         const result = await res.json()
+         setProducts(result.products)
+         console.log(result.products)
+     }
+     catch(err){
+        console.log(err);
+        
+     }
+ }
+
+  return (
+    <div>
+          <div className="search-container" ref={searchRef}>
+
+          <input
+              type="text"
+              value={fvalue}
+              onChange={handleSearchvalue}
+              placeholder='Type to search'
+              style={{border:"1px solid #000", padding:"3px 5px", borderRadius:"5px", width:"100%"}}
+
+          />
+              {showSuggestions && (
+          <ul className='ser_ul'>
+              {filtervalue.map(user => <li key={user.id}>{user.title}</li>)}
+          </ul>
+              )}
+</div>
+
+
+    </div>
+  )
+}
+
+export default Search
+`;
+
+document.getElementById("code").textContent = reactCode;
+
+hljs.highlightAll();
+
+function copy(){
+    navigator.clipboard.writeText(reactCode);
+    alert("Copied!");
+}
+
+</script>
+
+</body>
+</html>

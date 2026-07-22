@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<style>
+body{
+    margin:0;
+    background:#0d1117;
+    font-family:Arial;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:#161b22;
+    color:#fff;
+}
+
+button{
+    padding:8px 16px;
+    cursor:pointer;
+}
+
+pre{
+    margin:0;
+    padding:20px;
+    overflow:auto;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <span style="font-size:12px">infinitescroll.jsx ---- npm install react-infinite-scroll-component add `` in api like this(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)</span>
+    <button onclick="copy()">Copy</button>
+</div>
+
+<pre><code class="language-javascript" id="code"></code></pre>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+<script>
+
+const reactCode = `
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+function InfiniteScr() {
+    const [products, setProducts] = useState([]);
+    const [skip, setSkip] = useState(0);
+    const limit = 20;
+    const [hasMore, setHasMore] = useState(true);
+
+    const fetchProducts = async () => {
+        try {
+            const res = await fetch(
+                /https://dummyjson.com/products?limit=\${limit}\&skip=\${skip}
+            );
+
+            const data = await res.json();
+
+            setProducts((prev) => [...prev, ...data.products]);
+
+            setSkip((prev) => prev + limit);
+
+            if (skip + limit >= data.total) {
+                setHasMore(false);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    return (
+        <InfiniteScroll
+            dataLength={products.length}
+            next={fetchProducts}
+            hasMore={hasMore}
+            loader={<h2>Loading...</h2>}
+            endMessage={
+                <h3 style={{ textAlign: "center" }}>
+                    🎉 No more products
+                </h3>
+            }
+        >
+            <div className="grid grid-cols-4 gap-4 p-5">
+                {products.map((product) => (
+                    <div
+                        key={product.id}
+                        className="border rounded-lg p-4 shadow"
+                    >
+                        <img
+                            src={product.thumbnail}
+                            alt={product.title}
+                            className="w-full h-40 object-cover"
+                        />
+
+                        <h3>{product.title}</h3>
+
+                        <p>\${product.price}</p>
+                    </div>
+                ))}
+            </div>
+        </InfiniteScroll>
+    );
+}
+
+export default InfiniteScr;
+`;
+
+document.getElementById("code").textContent = reactCode;
+
+hljs.highlightAll();
+
+function copy(){
+    navigator.clipboard.writeText(reactCode);
+    alert("Copied!");
+}
+
+</script>
+
+</body>
+</html>
